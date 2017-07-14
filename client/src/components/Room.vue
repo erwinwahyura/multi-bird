@@ -34,14 +34,14 @@
     <div class="list-room">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-sm-6 col-md-4" v-for="dc in datacore">
+          <div class="col-sm-6 col-md-4" v-for="(dc, index) in datacore">
             <div class="thumbnail">
               <img src="http://www.publicdomainpictures.net/pictures/160000/velka/blue-monster.jpg" alt="...">
               <div class="caption">
                 <!-- <h3>{{ datacore.name }}</h3> -->
                 <h4>Room Name:</h4>
                 <h1>{{ dc.name }}</h1>
-                <p><a href="#" class="col-md-12 btn btn-primary" role="button">JOIN</a></p>
+                <p><button class="col-md-12 btn btn-primary"type="button" name="button" @click="join(index)">JOIN</button></p>
               </div>
             </div>
           </div>
@@ -61,9 +61,11 @@ export default {
       roomMaker: {
         id: '',
         name: '',
-        player: []
+        p1: '',
+        p2: ''
       },
-      roomId: ''
+      roomId: '',
+      joingame: []
     }
   },
   firebase () {
@@ -86,6 +88,25 @@ export default {
       this.$firebaseDB.ref('game').push(this.roomMaker, () => {
         this.roomMaker.name = ''
       })
+    },
+    join (index) {
+      var idUser = localStorage.getItem('id')
+      // var idUser2 = localStorage.getItem('id2')
+      // var data = this.$firebaseDB.ref('game').child(roomSelected)
+      var selectedRoom = this.datacore[index]
+      console.log('ini selectedRoom', selectedRoom['.key'])
+      if (selectedRoom.p1 !== '') {
+        this.$firebaseDB.ref('game/' + selectedRoom['.key'] + '/p2').set(idUser)
+        this.$router.push('/ingame')
+      } else if (selectedRoom.p2 === '') {
+        this.$firebaseDB.ref('game/' + selectedRoom['.key'] + '/p1').set(idUser)
+        this.$router.push('/ingame')
+      }
+      // // if ()
+      // data.update({
+      //   'p1': idUser
+      // })
+      // console.log(idUser)
     }
   },
   created () {

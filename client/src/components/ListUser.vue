@@ -2,36 +2,30 @@
   <div class="container">
     <div class="row">
       <div class="col-md-2">
-        <div class="panel panel-default">
+        <div class="panel panel-default" >
           <div class="panel-heading">
             <h3 class="panel-title">List Online User</h3>
           </div>
           <div class="panel-body">
             <!-- Extra small button group -->
+            <div class="btn-group col-md-12"  v-for="dc in datacore">
+              <button class="col-md-12 btn btn-default btn-xs dropdown-toggle " type="button" data-toggle="dropdown">
+                {{ dc.username }} <span class="badge">online</span>
+              </button>
+              <ul class="dropdown-menu col-md-12">
+                <button class="btn btn-danger" type="button" name="button" @click="logout()">Logout</button>
+              </ul>
+            </div>
             <div class="btn-group col-md-12">
-              <div class="btn-group col-md-12">
-                <button class="col-md-12 btn btn-default btn-xs dropdown-toggle " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  welcome, {{ user }}
-                </button>
-                <ul class="dropdown-menu col-md-12">
-                  <button class="btn btn-danger" type="button" name="button" @click="logout()">Logout</button>
-                </ul>
-              </div>
+
               <button class="col-md-12 btn btn-default btn-xs dropdown-toggle " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Guest911 <span class="badge">online</span>
               </button>
               <ul class="dropdown-menu col-md-12">
-                <button type="button" name="button" @click="tantangPlayer()">tantang player1</button>
+                <button class="btn btn-danger" type="button" name="button" @click="tantangPlayer()">tantang player1</button>
               </ul>
             </div>
-            <div class="btn-group col-md-12">
-              <button class="col-md-12 btn btn-default btn-xs dropdown-toggle " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Guest999911 <span class="badge">online</span>
-              </button>
-              <ul class="dropdown-menu col-md-12">
-                <button type="button" name="button" @click="tantangPlayer()">tantang player2</button>
-              </ul>
-            </div>
+
 
           </div>
         </div>
@@ -50,13 +44,27 @@
 export default {
   data () {
     return {
-      user: 'Erwin'
+      data: ''
     }
   },
   methods: {
     tantangPlayer () {
       alert('tunggu player menjawab tantangan anda...')
+    },
+    logout () {
+      this.localStorage.destroy()
     }
+  },
+  firebase () {
+    return {
+      datacore: this.$firebaseDB.ref('login')
+    }
+  },
+  created () {
+    if (localStorage.getItem('id') == null) {
+      this.$router.push('/login')
+    }
+    this.data = localStorage.getItem('id')
   }
 }
 </script>

@@ -15,7 +15,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="" method="post" role="form" style="display: block;">
+								<form id="login-form" role="form" style="display: block;" @submit.prevent="createNewUser()">
 									<div class="form-group">
 										<input v-model="dataUser.username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 									</div>
@@ -25,7 +25,7 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input @click="createNewUser()" type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
 											</div>
 										</div>
 									</div>
@@ -58,21 +58,26 @@ export default {
   },
   methods: {
     createNewUser () {
-      this.$firebaseDB.ref('login').push(this.dataUser, () => {
-        var data = this.dataLogin['.key']
-        console.log(data)
-        localStorage.setItem('id', data)
+      console.log(this.dataUser.username)
+      let loginKey = this.$firebaseDB.ref('login').push().key
+      this.$firebaseDB.ref('login/' + loginKey).set(this.dataUser, () => {
+        this.loginKeyToLocalStorage(loginKey)
+        if (localStorage.getItem('id') !== null) {
+          this.$router.push('/index')
+        }
       })
-      this.$router.push('/index')
+    },
+    loginKeyToLocalStorage (key) {
+      localStorage.setItem('id', key)
     }
   }
 }
 
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 body {
-    /*padding-top: 150px;*/
+  /*padding-top: 150px;*/
 }
 .panel-login {
 	border-color: #ccc;
@@ -161,6 +166,18 @@ body {
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;
+}
+.col-md-6.col-md-offset-3 {
+    padding-top: 150px;
+}
+.login {
+  background-image: url('https://s-media-cache-ak0.pinimg.com/originals/f4/2c/f9/f42cf965af6736aee516d84863fdd30e.jpg');
+  /*background-repeat: no-repeat;  */
+  position: relative;
+  width: 100%;
+  height: 840px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 </style>
