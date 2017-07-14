@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="room">
     <div class="jumbotron">
-      <h2>WELCOME TO BIRDS FIGHT!!</h2>
+      <h2>WELCOME TO MONSTER FIGHT!!</h2>
       <h4>Create room to play with other user</h4>
       <!-- <router-link to="/" class="btn btn-primary btn-lg">CREATE ROOM</router-link> -->
       <!-- Trigger the modal with a button -->
@@ -39,7 +39,8 @@
               <img src="http://www.publicdomainpictures.net/pictures/160000/velka/blue-monster.jpg" alt="...">
               <div class="caption">
                 <!-- <h3>{{ datacore.name }}</h3> -->
-                {{ dc.name }}
+                <h4>Room Name:</h4>
+                <h1>{{ dc.name }}</h1>
                 <p><a href="#" class="col-md-12 btn btn-primary" role="button">JOIN</a></p>
               </div>
             </div>
@@ -72,8 +73,8 @@ export default {
   },
   methods: {
     randomId () {
-      let str = '0123456789'
-      let length = 3
+      let str = '01234567890123456789'
+      let length = 5
       let result = ''
       for (let i = length; i > 0; i--) {
         result += str[Math.floor(Math.random() * str.length)]
@@ -82,7 +83,9 @@ export default {
       }
     },
     CreateRoom () {
-      this.$firebaseDB.ref('game').push(this.roomMaker)
+      this.$firebaseDB.ref('game').push(this.roomMaker, () => {
+        this.roomMaker.name = ''
+      })
     }
   },
   created () {
@@ -96,7 +99,11 @@ p {
   text-align: left;
 }
 .thumbnail {
-    height: 351px;
+    height: 411px;
+}
+h1 {
+    margin: 1.1rem;
+    font-size: 2em;
 }
 
 </style>
