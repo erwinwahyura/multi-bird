@@ -17,15 +17,15 @@
 							<div class="col-lg-12">
 								<form id="login-form" action="" method="post" role="form" style="display: block;">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input v-model="dataUser.username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<input v-model="dataUser.password" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
 									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+												<input @click="createNewUser()" type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
 											</div>
 										</div>
 									</div>
@@ -41,33 +41,28 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-const config = {
-  apiKey: 'AIzaSyBFeB00_BJThgniQHFGWEDb7iD8F0bhoK8',
-  authDomain: 'kanban-project.firebaseapp.com',
-  databaseURL: 'https://kanban-project.firebaseio.com',
-  projectId: 'kanban-project',
-  storageBucket: 'kanban-project.appspot.com',
-  messagingSenderId: '596201311478'
-}
-var firebaseApp = firebase.initializeApp(config)
-var logindb = firebaseApp.database().ref('login')
 
 export default {
   data () {
     return {
       dataUser: {
-        username: ''
+        username: '',
         password: ''
       }
     }
   },
-  firebase: {
-    datacore
+  firebase () {
+    return {
+      dataLogin: this.$firebaseDB.ref('login')
+    }
+  },
+  methods: {
+    createNewUser () {
+      this.$firebaseDB.ref('login').push(this.dataUser)
+      this.$router.push('/game')
+    }
   }
 }
-
-
 
 </script>
 

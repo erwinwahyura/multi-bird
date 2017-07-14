@@ -5,13 +5,22 @@ import Login from '@/components/Login'
 import ListUser from '@/components/ListUser'
 import Room from '@/components/Room'
 
-
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Hello',
+      component: Hello
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/game',
       name: 'ListUser',
       component: ListUser,
       children: [
@@ -20,16 +29,6 @@ export default new Router({
           component: Room
         }
       ]
-    },
-    {
-      path: '/s',
-      name: 'Hello',
-      component: Hello
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
     }
   ]
 })
