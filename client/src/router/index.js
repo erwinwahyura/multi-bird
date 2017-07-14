@@ -23,7 +23,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/game',
+      path: '/index',
       name: 'ListUser',
       component: ListUser,
       children: [

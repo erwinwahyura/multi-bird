@@ -58,8 +58,12 @@ export default {
   },
   methods: {
     createNewUser () {
-      this.$firebaseDB.ref('login').push(this.dataUser)
-      this.$router.push('/game')
+      this.$firebaseDB.ref('login').push(this.dataUser, () => {
+        var data = this.dataLogin['.key']
+        console.log(data)
+        localStorage.setItem('id', data)
+      })
+      this.$router.push('/index')
     }
   }
 }
@@ -68,7 +72,7 @@ export default {
 
 <style lang="css">
 body {
-    padding-top: 150px;
+    /*padding-top: 150px;*/
 }
 .panel-login {
 	border-color: #ccc;

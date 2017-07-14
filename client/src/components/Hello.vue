@@ -4,7 +4,7 @@
       <div class="row" style="margin-top:300px;">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <router-link to="login"><button type="button" name="button" class="btn btn-primary btn-lg">Do you want to play</button></router-link>
+          <router-link to="login"><button type="button" name="button" class="btn btn-primary btn-lg">Do you want to play?</button></router-link>
         </div>
         <div class="col-md-4"></div>
       </div>
@@ -32,11 +32,11 @@ h1, h2 {
 .hello {
   background-image: url('https://s-media-cache-ak0.pinimg.com/originals/f4/2c/f9/f42cf965af6736aee516d84863fdd30e.jpg');
   /*background-repeat: no-repeat;  */
-  position: relative;        
-  width: 100%;            
-  height: 700px;       
-  margin-left: auto;      
-  margin-right: auto;  
+  position: relative;
+  width: 100%;
+  height: 840px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 ul {
