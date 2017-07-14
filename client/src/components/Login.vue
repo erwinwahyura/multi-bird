@@ -41,8 +41,33 @@
 </template>
 
 <script>
-export default {
+import firebase from 'firebase'
+const config = {
+  apiKey: 'AIzaSyBFeB00_BJThgniQHFGWEDb7iD8F0bhoK8',
+  authDomain: 'kanban-project.firebaseapp.com',
+  databaseURL: 'https://kanban-project.firebaseio.com',
+  projectId: 'kanban-project',
+  storageBucket: 'kanban-project.appspot.com',
+  messagingSenderId: '596201311478'
 }
+var firebaseApp = firebase.initializeApp(config)
+var logindb = firebaseApp.database().ref('login')
+
+export default {
+  data () {
+    return {
+      dataUser: {
+        username: ''
+        password: ''
+      }
+    }
+  },
+  firebase: {
+    datacore
+  }
+}
+
+
 
 </script>
 
