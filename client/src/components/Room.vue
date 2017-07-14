@@ -34,11 +34,12 @@
     <div class="list-room">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-6 col-md-4" v-for="dc in datacore">
             <div class="thumbnail">
               <img src="http://www.publicdomainpictures.net/pictures/160000/velka/blue-monster.jpg" alt="...">
               <div class="caption">
-                <h3>Thumbnail label</h3>
+                <!-- <h3>{{ datacore.name }}</h3> -->
+                {{ dc.name }}
                 <p><a href="#" class="col-md-12 btn btn-primary" role="button">JOIN</a></p>
               </div>
             </div>
@@ -51,18 +52,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-const config = {
-  apiKey: 'AIzaSyBFeB00_BJThgniQHFGWEDb7iD8F0bhoK8',
-  authDomain: 'kanban-project.firebaseapp.com',
-  databaseURL: 'https://kanban-project.firebaseio.com',
-  projectId: 'kanban-project',
-  storageBucket: 'kanban-project.appspot.com',
-  messagingSenderId: '596201311478'
-}
-var firebaseApp = firebase.initializeApp(config)
 
-var gamedb = firebaseApp.database().ref('game')
 export default {
   data () {
     return {
@@ -75,8 +65,10 @@ export default {
       roomId: ''
     }
   },
-  firebase: {
-    datacore: gamedb
+  firebase () {
+    return {
+      datacore: this.$firebaseDB.ref('game')
+    }
   },
   methods: {
     randomId () {
@@ -90,7 +82,7 @@ export default {
       }
     },
     CreateRoom () {
-      gamedb.push(this.roomMaker)
+      this.$firebaseDB.ref('game').push(this.roomMaker)
     }
   },
   created () {
@@ -102,6 +94,9 @@ export default {
 <style lang="css" scoped>
 p {
   text-align: left;
+}
+.thumbnail {
+    height: 351px;
 }
 
 </style>
