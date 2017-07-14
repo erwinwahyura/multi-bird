@@ -1,26 +1,14 @@
 <template>
   <div class="hello">
-    <!-- <h1>{{ msg }}</h1> -->
     <div class="container">
-      <div class="row">
+      <div class="row" style="margin-top:300px;">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <form>
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="username" class="form-control" id="username">
-            </div>
-            <div class="form-group">
-              <label for="pwd">Password:</label>
-              <input type="password" class="form-control" id="pwd">
-            </div>
-            <button type="submit" class="btn btn-default">Login</button>
-          </form>
+          <router-link to="login"><button type="button" name="button" class="btn btn-primary btn-lg">Do you want to play</button></router-link>
         </div>
         <div class="col-md-4"></div>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -39,6 +27,16 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+
+.hello {
+  background-image: url('https://s-media-cache-ak0.pinimg.com/originals/f4/2c/f9/f42cf965af6736aee516d84863fdd30e.jpg');
+  /*background-repeat: no-repeat;  */
+  position: relative;        
+  width: 100%;            
+  height: 700px;       
+  margin-left: auto;      
+  margin-right: auto;  
 }
 
 ul {
